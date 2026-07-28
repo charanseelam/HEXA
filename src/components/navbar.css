@@ -1,0 +1,122 @@
+/* --- General Navbar Layout --- */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #050b14; /* Dark navbar background */
+  padding: 16px 32px;
+  color: #ffffff;
+  position: relative;
+  z-index: 100;
+}
+
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  color: #ffffff;
+  margin: 0;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  gap: 28px;
+  margin: 0;
+  padding: 0;
+}
+
+/* Links & Cursor handling */
+.nav-links a, 
+.dropdown-title {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-size: 15px;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover, 
+.dropdown:hover .dropdown-title {
+  color: #38bdf8; /* Highlight blue on hover */
+}
+
+/* --- Dropdown Positioning & Styling --- */
+.dropdown {
+  position: relative;
+  padding: 8px 0; /* Creates a hover bridge so menu doesn't disappear when moving cursor down */
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 160px;
+  background-color: #0b1322;
+  border: 1px solid #1e293b;
+  border-radius: 8px;
+  padding: 8px 0;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+
+  /* Layout: Stack menu items vertically */
+  display: flex;
+  flex-direction: column;
+
+  /* Appearance Time & Fade Transition */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  pointer-events: none;
+}
+
+/* Show Dropdown on Hover */
+.dropdown:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Dropdown Menu Item Links */
+.dropdown-menu a {
+  padding: 10px 16px;
+  font-size: 14px;
+  color: #94a3b8;
+  text-align: left;
+  white-space: nowrap;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+  background-color: #1e293b;
+  color: #ffffff;
+}
+
+/* --- Actions & Buttons --- */
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.btn {
+  background-color: #2563eb;
+  color: #ffffff !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+}
+
+.btn:hover {
+  background-color: #1d4ed8;
+}
+
+.login {
+  color: #e2e8f0;
+  text-decoration: none;
+  font-weight: 500;
+}
