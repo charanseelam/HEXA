@@ -1,5 +1,5 @@
 import React from "react";
-import "./Register.css"; // Ensure this matches your CSS filename
+import "../index.css"; // Ensure this matches your CSS filename
 
 export default function Register() {
   return (

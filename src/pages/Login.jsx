@@ -1,5 +1,5 @@
 import React from "react";
-import "./Login.css"; // Ensure this matches your CSS filename
+import "../index.css"; // Ensure this matches your CSS filename
 
 export default function Login() {
   return (

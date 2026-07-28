@@ -1,7 +1,7 @@
 
 
 import React from "react";
-import "./About.css"; // Imports the CSS file we'll create in Step 2
+import "../index.css"; // Imports the CSS file we'll create in Step 2
 
 export default function About() {
   const cardsData = [

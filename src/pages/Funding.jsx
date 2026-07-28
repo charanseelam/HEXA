@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./Funding.css";
+import "../index.css";
 
 const methods = [
   { name: "Bank Transfer", time: "1-2 business days", fee: "Free", min: "$100" },

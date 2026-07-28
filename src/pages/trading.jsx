@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import "./trading.css";
+import "../index.css";
 
 const fees = [
   { instrument: "Forex Majors (EUR/USD)", spread: "0.1 pips", commission: "$3.50 / lot" },
