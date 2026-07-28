@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../index.css";
-
+git
 const fees = [
   { instrument: "Forex Majors (EUR/USD)", spread: "0.1 pips", commission: "$3.50 / lot" },
   { instrument: "Forex Minors (GBP/AUD)", spread: "0.6 pips", commission: "$3.50 / lot" },
