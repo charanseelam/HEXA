@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../index.css";
-git
+
 const fees = [
   { instrument: "Forex Majors (EUR/USD)", spread: "0.1 pips", commission: "$3.50 / lot" },
   { instrument: "Forex Minors (GBP/AUD)", spread: "0.6 pips", commission: "$3.50 / lot" },
@@ -26,14 +26,20 @@ const marketData = [
 
 const tabs = ["fees", "ipo", "market-data"];
 
+function hashToTab(hash) {
+  const clean = hash.replace("#", "");
+  return tabs.includes(clean) ? clean : "fees";
+}
+
 export default function Trading() {
   const location = useLocation();
-  const [active, setActive] = useState("fees");
+  const [active, setActive] = useState(() => hashToTab(location.hash));
+  const [prevHash, setPrevHash] = useState(location.hash);
 
-  useEffect(() => {
-    const hash = location.hash.replace("#", "");
-    if (tabs.includes(hash)) setActive(hash);
-  }, [location]);
+  if (location.hash !== prevHash) {
+    setPrevHash(location.hash);
+    setActive(hashToTab(location.hash));
+  }
 
   return (
     <div className="trading-page">

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../index.css";
 
 export default function Home() {
@@ -23,8 +24,8 @@ export default function Home() {
         </p>
 
         <div className="buttons">
-          <button className="open"><a href="/register">Open An Account</a></button>
-          <button className="login"><a href="/login">Login</a></button>
+          <Link to="/register" className="open">Open An Account</Link>
+          <Link to="/login" className="login">Login</Link>
         </div>
 
       </div>

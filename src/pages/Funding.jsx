@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../index.css";
 
@@ -9,14 +9,23 @@ const methods = [
   { name: "Crypto (USDT/BTC)", time: "10-30 minutes", fee: "Network fee only", min: "$50" },
 ];
 
+function hashToTab(hash) {
+  const clean = hash.replace("#", "");
+  return clean === "deposit" || clean === "register" ? clean : "deposit";
+}
+
 export default function Funding() {
   const location = useLocation();
-  const [active, setActive] = useState("deposit");
+  const [active, setActive] = useState(() => hashToTab(location.hash));
+  const [prevHash, setPrevHash] = useState(location.hash);
 
-  useEffect(() => {
-    const hash = location.hash.replace("#", "");
-    if (hash === "deposit" || hash === "register") setActive(hash);
-  }, [location]);
+  // Derive the active tab from the URL hash during render instead of an
+  // effect, so navigating (e.g. clicking a Navbar link) updates the tab
+  // without an extra render pass.
+  if (location.hash !== prevHash) {
+    setPrevHash(location.hash);
+    setActive(hashToTab(location.hash));
+  }
 
   return (
     <div className="funding-page">

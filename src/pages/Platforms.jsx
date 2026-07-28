@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../index.css";
 
@@ -38,14 +38,20 @@ const platformData = {
   },
 };
 
+function hashToTab(hash) {
+  const clean = hash.replace("#", "");
+  return platformData[clean] ? clean : "desktop";
+}
+
 export default function Platforms() {
   const location = useLocation();
-  const [active, setActive] = useState("desktop");
+  const [active, setActive] = useState(() => hashToTab(location.hash));
+  const [prevHash, setPrevHash] = useState(location.hash);
 
-  useEffect(() => {
-    const hash = location.hash.replace("#", "");
-    if (hash && platformData[hash]) setActive(hash);
-  }, [location]);
+  if (location.hash !== prevHash) {
+    setPrevHash(location.hash);
+    setActive(hashToTab(location.hash));
+  }
 
   const current = platformData[active];
 
