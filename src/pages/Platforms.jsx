@@ -58,6 +58,7 @@ export default function Platforms() {
   return (
     <div className="platforms-page">
       <div className="platforms-header">
+        <div className="hero-badge">Multi-platform access</div>
         <h1>Trading Platforms</h1>
         <h2>
           Built for <span>every kind of trader</span>
@@ -97,7 +98,7 @@ export default function Platforms() {
                 <polyline
                   points="0,90 30,70 60,80 90,40 120,55 150,20 180,45 210,25 240,50 270,15 300,35"
                   fill="none"
-                  stroke="#00c8ff"
+                  stroke="#00d2ff"
                   strokeWidth="3"
                 />
               </svg>

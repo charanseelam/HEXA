@@ -1,0 +1,206 @@
+import { useEffect, useState } from 'react';
+
+export default function App() {
+  const [rates, setRates] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        setLoading(true);
+        // Fetch both rates and users from your backend API
+        const [ratesRes, usersRes] = await Promise.all([
+          fetch('http://localhost:5000/api/rates'),
+          fetch('http://localhost:5000/api/users')
+        ]);
+
+        const ratesData = await ratesRes.json();
+        const usersData = await usersRes.json();
+
+        setRates(ratesData);
+        setUsers(usersData);
+      } catch (err) {
+        console.error('Failed to fetch data:', err);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    fetchData();
+  }, []);
+
+  return (
+    <div style={styles.container}>
+      <header style={styles.header}>
+        <h1 style={styles.title}>💱 Forex Rates Dashboard</h1>
+        <p style={styles.subtitle}>Real-time foreign exchange market data</p>
+      </header>
+
+      {loading ? (
+        <div style={styles.loader}>Loading dashboard data...</div>
+      ) : (
+        <div style={styles.grid}>
+          {/* Forex Rates Card */}
+          <div style={styles.card}>
+            <h2 style={styles.cardTitle}>Live Currency Rates</h2>
+            <table style={styles.table}>
+              <thead>
+                <tr style={styles.tableHeaderRow}>
+                  <th style={styles.th}>Currency Pair</th>
+                  <th style={styles.th}>Exchange Rate</th>
+                </tr>
+              </thead>
+              <tbody>
+                {rates.map((item) => (
+                  <tr key={item.id} style={styles.tr}>
+                    <td style={styles.td}>
+                      <span style={styles.badge}>{item.currency_pair}</span>
+                    </td>
+                    <td style={styles.rateValue}>{Number(item.rate).toFixed(4)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Registered Users Card */}
+          <div style={styles.card}>
+            <h2 style={styles.cardTitle}>Registered Users</h2>
+            <ul style={styles.userList}>
+              {users.map((user) => (
+                <li key={user.id} style={styles.userItem}>
+                  <div style={styles.avatar}>{user.username.charAt(0).toUpperCase()}</div>
+                  <div>
+                    <strong style={styles.username}>@{user.username}</strong>
+                    <span style={styles.email}>{user.email}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Inline styles for quick styling without external CSS setups
+const styles = {
+  container: {
+    minHeight: '100vh',
+    backgroundColor: '#0f172a',
+    color: '#f8fafc',
+    fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
+    padding: '2.5rem 1.5rem',
+  },
+  header: {
+    maxWidth: '1000px',
+    margin: '0 auto 2.5rem auto',
+    textAlign: 'center',
+  },
+  title: {
+    fontSize: '2.25rem',
+    fontWeight: '700',
+    color: '#38bdf8',
+    marginBottom: '0.5rem',
+  },
+  subtitle: {
+    color: '#94a3b8',
+    fontSize: '1rem',
+  },
+  loader: {
+    textAlign: 'center',
+    color: '#94a3b8',
+    fontSize: '1.2rem',
+    marginTop: '3rem',
+  },
+  grid: {
+    maxWidth: '1000px',
+    margin: '0 auto',
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+    gap: '2rem',
+  },
+  card: {
+    backgroundColor: '#1e293b',
+    borderRadius: '12px',
+    padding: '1.5rem',
+    boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.3)',
+    border: '1px solid #334155',
+  },
+  cardTitle: {
+    fontSize: '1.25rem',
+    fontWeight: '600',
+    marginBottom: '1.25rem',
+    color: '#f1f5f9',
+    borderBottom: '1px solid #334155',
+    paddingBottom: '0.75rem',
+  },
+  table: {
+    width: '100%',
+    borderCollapse: 'collapse',
+  },
+  tableHeaderRow: {
+    borderBottom: '2px solid #334155',
+  },
+  th: {
+    textAlign: 'left',
+    padding: '0.75rem',
+    color: '#94a3b8',
+    fontSize: '0.875rem',
+    textTransform: 'uppercase',
+  },
+  tr: {
+    borderBottom: '1px solid #334155',
+  },
+  td: {
+    padding: '0.85rem 0.75rem',
+  },
+  badge: {
+    backgroundColor: '#0284c7',
+    color: '#ffffff',
+    padding: '0.25rem 0.6rem',
+    borderRadius: '6px',
+    fontWeight: '600',
+    fontSize: '0.9rem',
+  },
+  rateValue: {
+    padding: '0.85rem 0.75rem',
+    fontWeight: '600',
+    fontSize: '1.05rem',
+    color: '#4ade80',
+  },
+  userList: {
+    listStyle: 'none',
+    padding: 0,
+    margin: 0,
+  },
+  userItem: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '1rem',
+    padding: '0.75rem 0',
+    borderBottom: '1px solid #334155',
+  },
+  avatar: {
+    width: '40px',
+    height: '40px',
+    borderRadius: '50%',
+    backgroundColor: '#38bdf8',
+    color: '#0f172a',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    fontWeight: '700',
+    fontSize: '1.1rem',
+  },
+  username: {
+    display: 'block',
+    color: '#f8fafc',
+  },
+  email: {
+    fontSize: '0.85rem',
+    color: '#94a3b8',
+  },
+};

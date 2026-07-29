@@ -1,10 +1,16 @@
 import { Link } from "react-router-dom";
 import "../index.css";
 
-export default function Navbar() {
+export default function Navbar({ user, onLogout }) {
   return (
     <nav className="navbar">
-      <h2 className="logo">HEXA</h2>
+      <Link to="/" className="logo-wrap">
+        <div className="logo-mark">H</div>
+        <div>
+          <div className="logo">HEXA</div>
+          <div className="logo-sub">Trading</div>
+        </div>
+      </Link>
 
       <ul className="nav-links">
         <li><Link to="/">Home</Link></li>
@@ -38,8 +44,21 @@ export default function Navbar() {
       </ul>
 
       <div className="actions">
-        <Link to="/register" className="btn">Open Account</Link>
-        <Link to="/login" className="login">Login</Link>
+        {user ? (
+          <>
+            <Link to="/dashboard" className="btn">Dashboard</Link>
+            <Link to="/markets" className="login">Markets</Link>
+            <Link to="/portfolio" className="login">Portfolio</Link>
+            <Link to="/settings" className="login">Settings</Link>
+            <Link to="/profile" className="login">Profile</Link>
+            <button type="button" onClick={onLogout} className="login">Logout</button>
+          </>
+        ) : (
+          <>
+            <Link to="/register" className="btn">Open Account</Link>
+            <Link to="/login" className="login">Login</Link>
+          </>
+        )}
       </div>
     </nav>
   );

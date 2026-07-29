@@ -44,6 +44,7 @@ export default function Trading() {
   return (
     <div className="trading-page">
       <div className="trading-header">
+        <div className="hero-badge">Transparent pricing</div>
         <h1>Trading</h1>
         <h2>
           Transparent <span>pricing & market access</span>

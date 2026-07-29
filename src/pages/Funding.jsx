@@ -30,6 +30,7 @@ export default function Funding() {
   return (
     <div className="funding-page">
       <div className="funding-header">
+        <div className="hero-badge">Fast funding</div>
         <h1>Funding</h1>
         <h2>
           Get your money to work <span>in minutes</span>
